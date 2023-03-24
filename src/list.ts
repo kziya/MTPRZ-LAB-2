@@ -53,6 +53,18 @@ export class List<T> {
     if (!node) return null;
     return node.val;
   }
+  reverse() {
+    const head = this._head;
+    this._head = this._tail;
+    this._tail = head;
+    let curElem = this._head;
+    while (curElem) {
+      const nextElem = curElem.next;
+      curElem.next = curElem.prev;
+      curElem.prev = nextElem;
+      curElem = curElem.next;
+    }
+  }
   insert(val: T, index: number) {
     if (index === 0) {
       return this.prepend(val);
