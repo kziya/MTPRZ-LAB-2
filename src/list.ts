@@ -48,6 +48,11 @@ export class List<T> {
       return elemToDelete.val;
     }
   }
+  get(index: number): T | null {
+    const node = this.getNodeByIndex(index);
+    if (!node) return null;
+    return node.val;
+  }
   insert(val: T, index: number) {
     if (index === 0) {
       return this.prepend(val);
