@@ -94,7 +94,6 @@ export class List<T> {
     let curIndex = 0;
     while (curElem) {
       if (curElem.val === val) {
-        console.log(curIndex);
         this.delete(curIndex);
       } else curIndex++;
       curElem = curElem.next;
