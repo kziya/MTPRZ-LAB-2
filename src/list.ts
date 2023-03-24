@@ -9,7 +9,7 @@ export class List<T> {
     this._length = 0;
   }
   length() {
-    return this._length;
+    return this._length + 1;
   }
   append(val: T) {
     if (this.length() === 0) {
