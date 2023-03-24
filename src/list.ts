@@ -26,13 +26,15 @@ export class List<T> {
     this._length++;
   }
   delete(index: number): T | null {
+    let val: T;
     if (index === 0) {
-      const val = this.head.val;
+      val = this.head.val;
       this.head = this.head.next;
       this.head.prev = null;
+      this._length--;
       return val;
     } else if (index === this._length - 1) {
-      const val = this.tail.val;
+      val = this.tail.val;
       this.tail = this.tail.prev;
       this.tail.next = null;
       return val;
@@ -43,8 +45,10 @@ export class List<T> {
       const next = elemToDelete.next;
       prev.next = next;
       next.prev = prev;
-      return elemToDelete.val;
+      val = elemToDelete.val;
     }
+    this._length--;
+    return val;
   }
   get(index: number): T | null {
     const node = this.getNodeByIndex(index);
@@ -82,6 +86,17 @@ export class List<T> {
     let curElem = list.head;
     while (curElem) {
       this.append(curElem.val);
+      curElem = curElem.next;
+    }
+  }
+  deleteAll(val: T) {
+    let curElem = this.head;
+    let curIndex = 0;
+    while (curElem) {
+      if (curElem.val === val) {
+        console.log(curIndex);
+        this.delete(curIndex);
+      } else curIndex++;
       curElem = curElem.next;
     }
   }
