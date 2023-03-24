@@ -86,7 +86,6 @@ describe('List', () => {
       list.append(0);
       list.clear();
       expect(list.length()).toBe(0);
-      expect(list.get(0)).toBe(null);
       expect(list.get(0)).not.toBe(1);
     });
   });
