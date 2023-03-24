@@ -3,11 +3,11 @@ import { util } from 'prettier';
 import isNextLineEmpty = util.isNextLineEmpty;
 
 export class List<T> {
-  private _head: Node<T>;
-  private _tail: Node<T>;
+  public head: Node<T>;
+  public tail: Node<T>;
   private _length: number;
   constructor() {
-    this._tail = this._head = null;
+    this.tail = this.head = null;
     this._length = 0;
   }
   length() {
@@ -15,28 +15,28 @@ export class List<T> {
   }
   append(val: T) {
     if (this.length() === 0) {
-      this._head = this._tail = new Node<T>(val);
+      this.head = this.tail = new Node<T>(val);
     } else {
-      this._tail.next = new Node<T>(val, this._tail);
-      this._tail.next.prev = this._tail;
-      this._tail = this._tail.next;
+      this.tail.next = new Node<T>(val, this.tail);
+      this.tail.next.prev = this.tail;
+      this.tail = this.tail.next;
     }
     this._length++;
   }
   prepend(val: T) {
-    this._head = new Node(val, null, this._head);
+    this.head = new Node(val, null, this.head);
     this._length++;
   }
   delete(index: number): T | null {
     if (index === 0) {
-      const val = this._head.val;
-      this._head = this._head.next;
-      this._head.prev = null;
+      const val = this.head.val;
+      this.head = this.head.next;
+      this.head.prev = null;
       return val;
     } else if (index === this._length - 1) {
-      const val = this._tail.val;
-      this._tail = this._tail.prev;
-      this._tail.next = null;
+      const val = this.tail.val;
+      this.tail = this.tail.prev;
+      this.tail.next = null;
       return val;
     } else {
       const elemToDelete = this.getNodeByIndex(index);
@@ -54,10 +54,10 @@ export class List<T> {
     return node.val;
   }
   reverse() {
-    const head = this._head;
-    this._head = this._tail;
-    this._tail = head;
-    let curElem = this._head;
+    const head = this.head;
+    this.head = this.tail;
+    this.tail = head;
+    let curElem = this.head;
     while (curElem) {
       const nextElem = curElem.next;
       curElem.next = curElem.prev;
@@ -65,6 +65,7 @@ export class List<T> {
       curElem = curElem.next;
     }
   }
+  clone() {}
   insert(val: T, index: number) {
     if (index === 0) {
       return this.prepend(val);
@@ -80,11 +81,11 @@ export class List<T> {
     }
   }
   getHead(): Node<T> {
-    return this._head;
+    return this.head;
   }
   private getNodeByIndex(index: number): Node<T> {
     if (index < 0 || index >= this._length) return null;
-    let curNode = this._head;
+    let curNode = this.head;
     let curIndex = 0;
 
     while (curNode.next && curIndex < index) {
