@@ -78,6 +78,13 @@ export class List<T> {
     this.tail = null;
     this._length = 0;
   }
+  extend(list: List<T>): void {
+    let curElem = list.head;
+    while (curElem) {
+      this.append(curElem.val);
+      curElem = curElem.next;
+    }
+  }
   insert(val: T, index: number) {
     if (index === 0) {
       return this.prepend(val);
