@@ -141,9 +141,6 @@ export class List<T> {
       this._length++;
     }
   }
-  getHead(): Node<T> {
-    return this.head;
-  }
   private getNodeByIndex(index: number): Node<T> {
     if (index < 0 || index >= this._length) return null;
     let curNode = this.head;
