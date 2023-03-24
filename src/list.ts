@@ -22,22 +22,30 @@ export class List<T> {
     this._length++;
   }
   prepend(val: T) {
-    this.head = new Node(val, null, this.head);
+    const newNode = new Node<T>(val, null, this.head);
+    if (this.head) {
+      this.head.prev = newNode;
+    } else {
+      this.tail = newNode;
+    }
+    this.head = newNode;
     this._length++;
+  }
+  get(index: number): T | null {
+    const node = this.getNodeByIndex(index);
+    if (!node) return null;
+    return node.val;
   }
   delete(index: number): T | null {
     let val: T;
     if (index === 0) {
       val = this.head.val;
       this.head = this.head.next;
-      this.head.prev = null;
-      this._length--;
-      return val;
+      if (this.head) this.head.prev = null;
     } else if (index === this._length - 1) {
       val = this.tail.val;
       this.tail = this.tail.prev;
-      this.tail.next = null;
-      return val;
+      if (this.tail) this.tail.next = null;
     } else {
       const elemToDelete = this.getNodeByIndex(index);
       if (!elemToDelete) return null;
@@ -49,11 +57,6 @@ export class List<T> {
     }
     this._length--;
     return val;
-  }
-  get(index: number): T | null {
-    const node = this.getNodeByIndex(index);
-    if (!node) return null;
-    return node.val;
   }
   reverse() {
     const head = this.head;
