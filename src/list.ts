@@ -89,6 +89,31 @@ export class List<T> {
       curElem = curElem.next;
     }
   }
+  findFirst(val: T): number {
+    let curElem = this.head;
+    let curIndex = 0;
+    while (curElem) {
+      if (curElem.val === val) {
+        return curIndex;
+      }
+      curElem = curElem.next;
+      curIndex++;
+    }
+  }
+  findLast(val: T) {
+    let curElem = this.head;
+    let curIndex = 0;
+    let lastIndex = -1;
+    while (curElem) {
+      if (curElem.val === val) {
+        lastIndex = curIndex;
+      }
+      curElem = curElem.next;
+      curIndex++;
+    }
+
+    return lastIndex;
+  }
   deleteAll(val: T) {
     let curElem = this.head;
     let curIndex = 0;
