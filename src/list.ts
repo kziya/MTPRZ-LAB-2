@@ -2,13 +2,9 @@ import { Node } from './node';
 
 export class List<T> {
   public array: T[];
-  public head: Node<T>;
-  public tail: Node<T>;
-  private _length: number;
+
   constructor() {
     this.array = [];
-    this.tail = this.head = null;
-    this._length = 0;
   }
   length() {
     return this.array.length;
@@ -56,17 +52,5 @@ export class List<T> {
     const firstPiece = this.array.slice(0, index);
     const lastPiece = this.array.slice(index);
     this.array = [...firstPiece, val, ...lastPiece];
-  }
-  private getNodeByIndex(index: number): Node<T> {
-    if (index < 0 || index >= this._length) return null;
-    let curNode = this.head;
-    let curIndex = 0;
-
-    while (curNode.next && curIndex < index) {
-      curNode = curNode.next;
-      curIndex++;
-    }
-
-    return curNode;
   }
 }
