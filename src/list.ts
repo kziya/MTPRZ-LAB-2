@@ -73,6 +73,11 @@ export class List<T> {
 
     return newList;
   }
+  clear() {
+    this.head = null;
+    this.tail = null;
+    this._length = 0;
+  }
   insert(val: T, index: number) {
     if (index === 0) {
       return this.prepend(val);
