@@ -1,4 +1,6 @@
 import { Node } from './node';
+import { util } from 'prettier';
+import isNextLineEmpty = util.isNextLineEmpty;
 
 export class List<T> {
   private _head: Node<T>;
@@ -22,9 +24,29 @@ export class List<T> {
     this._length++;
   }
   prepend(val: T) {
-    const newNode = new Node(val, null, this._head);
-    this._head = newNode;
+    this._head = new Node(val, null, this._head);
     this._length++;
+  }
+  delete(index: number): T | null {
+    if (index === 0) {
+      const val = this._head.val;
+      this._head = this._head.next;
+      this._head.prev = null;
+      return val;
+    } else if (index === this._length - 1) {
+      const val = this._tail.val;
+      this._tail = this._tail.prev;
+      this._tail.next = null;
+      return val;
+    } else {
+      const elemToDelete = this.getNodeByIndex(index);
+      if (!elemToDelete) return null;
+      const prev = elemToDelete.prev;
+      const next = elemToDelete.next;
+      prev.next = next;
+      next.prev = prev;
+      return elemToDelete.val;
+    }
   }
   insert(val: T, index: number) {
     if (index === 0) {
