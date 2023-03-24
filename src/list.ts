@@ -1,6 +1,4 @@
 import { Node } from './node';
-import { util } from 'prettier';
-import isNextLineEmpty = util.isNextLineEmpty;
 
 export class List<T> {
   public head: Node<T>;
@@ -65,7 +63,16 @@ export class List<T> {
       curElem = curElem.next;
     }
   }
-  clone() {}
+  clone(): List<T> {
+    const newList = new List<T>();
+    let curElemOfOldList = this.head;
+    while (curElemOfOldList) {
+      newList.append(curElemOfOldList.val);
+      curElemOfOldList = curElemOfOldList.next;
+    }
+
+    return newList;
+  }
   insert(val: T, index: number) {
     if (index === 0) {
       return this.prepend(val);
